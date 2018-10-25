@@ -1,0 +1,446 @@
+background-color: #C39BD3;
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">New User Creation: </div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {!! Form::open(['url' => '/usercreate/submit']) !!}
+                    <div class="form-group">
+                      {{Form::label('name', 'Name')}}
+                      {{Form::text('name','',['class' => 'form-control','placeholder' =>'Enter name'])}}
+                    </div>
+                    <div class="form-group">
+                      {{Form::label('emp_id', 'Employee ID')}}
+                      {{Form::text('emp_id','',['class' => 'form-control','placeholder' =>'Enter Employee ID'])}}
+                    </div>
+                    <div class="form-group">
+                      {{Form::label('email', 'E-Mail Address')}}
+                      {{Form::text('email','',['class' => 'form-control','placeholder' =>'Enter email'])}}
+                    </div>
+                        <!--<div class="form-group">
+                          {{Form::label('password', 'Temporary pwd')}}
+                          {{Form::password('password',['class' => 'form-control','placeholder' =>'Temporary pwd'])}}
+                        </div>   -->
+                    <div class="form-group">
+                      {{Form::label('mobile', 'Mobile Number')}}
+                      {{Form::number('mobile', '',['class' => 'form-control','placeholder' =>'Enter mobile number'])}}
+                    </div>
+                    <div class="radio">
+                      {{Form::label('superadmin', 'SuperAdmin:')}}  &nbsp;
+                      {{Form::radio('superadmin','1')}} Yes  &nbsp;&nbsp; {{Form::radio('superadmin','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_taxi_booking_access', 'Taxi Booking Access:')}}  &nbsp;
+                      {{Form::radio('has_taxi_booking_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_taxi_booking_access','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_bus_booking_access', 'Bus Booking Access:')}}  &nbsp;
+                      {{Form::radio('has_bus_booking_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_bus_booking_access','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_train_booking_access', 'Train Booking Access:')}}  &nbsp;
+                      {{Form::radio('has_train_booking_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_train_booking_access','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_flight_booking_access', 'Flight Booking Access:')}}  &nbsp;
+                      {{Form::radio('has_flight_booking_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_flight_booking_access','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_meal_booking_access', 'Meal Booking Access:')}}  &nbsp;
+                      {{Form::radio('has_meal_booking_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_meal_booking_access','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('has_billing_access', 'Billing Access:')}}  &nbsp;
+                      {{Form::radio('has_billing_access','1')}} Yes  &nbsp;&nbsp; {{Form::radio('has_billing_access','0')}} No </br></br>
+                    </div>
+                    <div class="form-group">
+                      {{Form::label('company', 'Company Name')}}
+                      {{Form::text('company', '',['class' => 'form-control','placeholder' =>'Enter company'])}}
+                    </div>
+                    <!-- <div class="checkbox">
+                          {{Form::label('access', 'Access to:')}} </br>
+                          {{Form::checkbox('access[]','Taxi Booking')}} Taxi Booking </br>
+                          {{Form::checkbox('access[]','Bus Booking')}} Bus Booking </br>
+                          {{Form::checkbox('access[]','Train Booking')}} Train Booking </br>
+                          {{Form::checkbox('access[]','Flight Booking')}} Flight Booking </br>
+                          {{Form::checkbox('access[]','Meal Booking')}} Meal Booking </br>
+                          {{Form::checkbox('access[]','Water Bottles')}} Water Bottles </br>
+                          {{Form::checkbox('access[]','Hotels')}} Hotel </br></br>
+                        </div> -->
+                    <div class="form-group">
+                      {{Form::label('shift_timing_start', 'Shift timing start')}}
+                      {{Form::time('shift_timing_start', '',['class' => 'form-control','placeholder' =>'Shift start time'])}}
+                    </div>
+                    <div class="form-group">
+                      {{Form::label('shift_timing_end', 'Shift timing end')}}
+                      {{Form::time('shift_timing_end', '',['class' => 'form-control','placeholder' =>'Shift end time'])}}
+                    </div>
+                    <div>
+                      {{form::submit('Submit',['class'=>'btn btn-primary'])}}
+                    </div>
+                  {!! Form::close() !!}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+===============================================
+=================================================
+
+
+
+    {!! Form::open(array("/edit/$users->id")) !!}
+      <div class="form-group">
+        {{Form::label('name', 'Name')}}
+        {{Form::text('name',$users->name,['class' => 'form-control'])}}
+      </div>
+      <div class="form-group">
+        {{Form::label('emp_id', 'Employee ID')}}
+        {{Form::text('emp_id',$users->emp_id,['class' => 'form-control'])}}
+      </div>
+      <div class="form-group">
+        {{Form::label('email', 'E-Mail Address')}}
+        {{Form::text('email',$users->email,['class' => 'form-control'])}}
+      </div>
+      <div class="form-group">
+        {{Form::label('mobile', 'Mobile Number')}}
+        {{Form::number('mobile',$users->mobile,['class' => 'form-control'])}}
+      </div>
+      <div class="radio">
+        {{Form::label('superadmin', 'SuperAdmin:')}}  </br>
+          <input type="radio" name="superadmin" value="1" {{ (old('superadmin') != $users->superadmin) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="superadmin" value="0" {{ (old('superadmin') == $users->superadmin) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="form-group">
+        {{Form::label('company', 'Company Name')}}
+        {{Form::text('company', $users->company,['class' => 'form-control'])}}
+      </div>
+      <div class="radio">
+        {{Form::label('has_taxi_booking_access', 'Taxi Booking Access:')}}  </br>
+          <input type="radio" name="has_taxi_booking_access" value="1" {{ (old('has_taxi_booking_access') != $users->has_taxi_booking_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_taxi_booking_access" value="0" {{ (old('has_taxi_booking_access') == $users->has_taxi_booking_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('has_bus_booking_access', 'Bus Booking Access:')}}  </br>
+          <input type="radio" name="has_bus_booking_access" value="1" {{ (old('has_bus_booking_access') != $users->has_bus_booking_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_bus_booking_access" value="0" {{ (old('has_bus_booking_access') == $users->has_bus_booking_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('has_train_booking_access', 'Train Booking Access:')}}  </br>
+          <input type="radio" name="has_train_booking_access" value="1" {{ (old('has_train_booking_access') != $users->has_train_booking_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_train_booking_access" value="0" {{ (old('has_train_booking_access') == $users->has_train_booking_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('has_flight_booking_access', 'Flight Booking Access:')}}  </br>
+          <input type="radio" name="has_flight_booking_access" value="1" {{ (old('has_flight_booking_access') != $users->has_flight_booking_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_flight_booking_access" value="0" {{ (old('has_flight_booking_access') == $users->has_flight_booking_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('has_meal_booking_access', 'Meal Booking Access:')}}  </br>
+          <input type="radio" name="has_meal_booking_access" value="1" {{ (old('has_meal_booking_access') != $users->has_meal_booking_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_meal_booking_access" value="0" {{ (old('has_meal_booking_access') == $users->has_meal_booking_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('has_billing_access', 'Billing Access:')}}  </br>
+          <input type="radio" name="has_billing_access" value="1" {{ (old('has_billing_access') != $users->has_billing_access) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="has_billing_access" value="0" {{ (old('has_billing_access') == $users->has_billing_access) ? "CHECKED" : "" }}> No<br/>
+      </div>
+     <div class="form-group">
+        {{Form::label('shift_timing_start', 'Shift timing start')}}
+        {{Form::time('shift_timing_start',$users->shift_timing_start,['class' => 'form-control'])}}
+      </div>
+      <div class="form-group">
+        {{Form::label('shift_timing_end', 'Shift timing end')}}
+        {{Form::time('shift_timing_end', $users->shift_timing_end,['class' => 'form-control'])}}
+      </div>
+        {{Form::hidden('id', $users->id)}}
+      <div>
+        {{form::submit('Submit',['class'=>'btn btn-primary'])}}
+      </div>
+
+    {!!Form::close() !!}
+
+
+
+
+
+==================================================================
+===================================================================
+
+
+
+
+
+                    {!! Form::open(['url' => '/companycreate/submit']) !!}
+                    <fieldset>
+                     <legend> Company Details </legend>
+                    <div class="form-group">
+                      <!-- {{Form::label('companyname', 'Company Name')}} -->
+                      {{Form::text('companyname','',['class' => 'form-control','placeholder' =>'Company name'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('companycode', 'Client code')}} -->
+                      {{Form::text('companycode','',['class' => 'form-control','placeholder' =>'Client code'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('contactperson', 'Contact Person')}} -->
+                      {{Form::text('contactperson','',['class' => 'form-control','placeholder' =>'Contact Person'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('contactnumber', 'Contact Number')}} -->
+                      {{Form::number('contactnumber','',['class' => 'form-control','placeholder' =>'Contact Number'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('contactemail', 'Contact Email')}} -->
+                      {{Form::text('contactemail','',['class' => 'form-control','placeholder' =>'Contact Email'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('companypassword', 'Password')}} -->
+                      {{Form::text('companypassword','',['class' => 'form-control','placeholder' =>'Password'])}}
+                    </div>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Billing Details:</legend>
+
+
+                    <div class="form-group">
+                      <!-- {{Form::label('companybillingname', 'Billing Entity Name')}} -->
+                      {{Form::text('companybillingname','',['class' => 'form-control','placeholder' =>'Billing Entity name'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('companybillingaddress', 'Company Billing Address')}} -->
+                      {{Form::textarea('companybillingaddress','',['class' => 'form-control','placeholder' =>'Billing Address'])}}
+                    </div>
+                    <div class="form-group">
+                      <!-- {{Form::label('companygst', 'GSTIN')}} -->
+                      {{Form::text('companygst','',['class' => 'form-control','placeholder' =>'GSTIN'])}}
+                    </div>
+                    <!-- <div class="checkbox">
+                      {{Form::label('companyapprovaltype', 'Approvals type:')}} </br>
+                      {{Form::checkbox('companyapprovaltype[]','SPOC Approval')}} SPOC Approval </br>
+                      {{Form::checkbox('companyapprovaltype[]','Admin Approval')}} Admin Approval </br>
+                      {{Form::checkbox('companyapprovaltype[]','Approver1')}} Approver1 </br>
+                      {{Form::checkbox('companyapprovaltype[]','Approver2')}} Approver2 </br>
+                      {{Form::checkbox('companyapprovaltype[]','Approver3')}} Approver3 </br>
+                    </div> </br> -->
+                    <!-- <div class="checkbox">
+                      {{Form::label('companybookingtype', 'Type of Bookings:')}} </br>
+                      {{Form::checkbox('companybookingtype[]','Radio Bookings')}} Radio Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Local Bookings')}} Local Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Outstation Bookings')}} Outstation Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Bus Bookings')}} Bus Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Train Bookings')}} Train Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Hotel Bookings')}} Hotel Bookings </br>
+                      {{Form::checkbox('companybookingtype[]','Flight Bookings')}} Flight Bookings </br></br>
+                    </div> -->
+
+                    <div class="radio">
+                      {{Form::label('spoc_approval', 'SPOC Approval:')}}  &nbsp;
+                      {{Form::radio('spoc_approval','1')}} Yes  &nbsp;&nbsp; {{Form::radio('spoc_approval','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('admin_approval', 'Admin Approval:')}}  &nbsp;
+                      {{Form::radio('admin_approval','1')}} Yes  &nbsp;&nbsp; {{Form::radio('admin_approval','0')}} No </br></br>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend> Access Details: </legend>
+                    <div class="radio">
+                      {{Form::label('hasapproverlevel', 'Has Approver Levels:')}}  &nbsp;
+                      {{Form::radio('hasapproverlevel','1')}} Yes  &nbsp;&nbsp; {{Form::radio('hasapproverlevel','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('hasbothapprover', 'Has Both Approvers:')}}  &nbsp;
+                      {{Form::radio('hasbothapprover','1')}} Yes  &nbsp;&nbsp; {{Form::radio('hasbothapprover','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('hasnoapprover', 'Has No Approver:')}}  &nbsp;
+                      {{Form::radio('hasnoapprover','1')}} Yes  &nbsp;&nbsp; {{Form::radio('hasnoapprover','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('radio_booking', 'Radio Booking Access:')}}  &nbsp;
+                      {{Form::radio('radio_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('radio_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('local_booking', 'Local Booking Access:')}}  &nbsp;
+                      {{Form::radio('local_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('local_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('Outstation_booking', 'Outstation Booking Access:')}}  &nbsp;
+                      {{Form::radio('outstation_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('outstation_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('bus_booking', 'Bus Booking Access:')}}  &nbsp;
+                      {{Form::radio('bus_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('bus_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('train_booking', 'Train Booking Access:')}}  &nbsp;
+                      {{Form::radio('train_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('train_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('flight_booking', 'Flight Booking Access:')}}  &nbsp;
+                      {{Form::radio('flight_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('flight_booking','0')}} No </br></br>
+                    </div>
+                    <div class="radio">
+                      {{Form::label('hotel_booking', 'Hotel Booking Access:')}}  &nbsp;
+                      {{Form::radio('hotel_booking','1')}} Yes  &nbsp;&nbsp; {{Form::radio('hotel_booking','0')}} No </br></br>
+                    </div>
+                    <div>
+                      {{form::submit('Submit',['class'=>'btn btn-primary'])}}
+                    </div>
+                  </fieldset>
+                {!! Form::close() !!}
+
+
+
+=====================================================
+======================================================
+
+<div class="container">
+  <a href="/Home"> ...back </a>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Modify Client: </div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+    {!! Form::open(array("/edit/$companys->id")) !!}
+    <div class="form-group">
+      {{Form::label('companyname', 'Company Name: ')}}
+      {{Form::text('companyname',$companys->companyname,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('companycode', 'Company Code: ')}}
+      {{Form::text('companycode',$companys->companycode,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('contactperson', 'Contact Person: ')}}
+      {{Form::text('contactperson',$companys->contactperson,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('contactnumber', 'Contact Number: ')}}
+      {{Form::number('contactnumber',$companys->contactnumber,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('contactemail', 'Contact Email: ')}}
+      {{Form::text('contactemail',$companys->contactemail,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('companypassword', 'Company Password: ')}}
+      {{Form::text('companypassword',$companys->companypassword,['class' => 'form-control'])}}
+    </div>
+    Billing Details:
+
+    <div class="form-group">
+      {{Form::label('companybillingname', 'Company Billing Name: ')}}
+      {{Form::text('companybillingname',$companys->companybillingname,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('companybillingaddress', 'Company Billing Address: ')}}
+      {{Form::textarea('companybillingaddress',$companys->companybillingaddress,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('companygst', 'GSTIN: ')}}
+      {{Form::text('companygst',$companys->companygst,['class' => 'form-control'])}}
+    </div>
+      <div class="radio">
+        {{Form::label('spoc_approval', 'SPOC Approval:')}}  </br>
+          <input type="radio" name="spoc_approval" value="1" {{ (old('spoc_approval') != $companys->spoc_approval) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="spoc_approval" value="0" {{ (old('spoc_approval') == $companys->spoc_approval) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('admin_approval', 'Admin Approval:')}}  </br>
+          <input type="radio" name="admin_approval" value="1" {{ (old('admin_approval') != $companys->admin_approval) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="admin_approval" value="0" {{ (old('admin_approval') == $companys->admin_approval) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('hasapproverlevel', 'Has Approver Levels:')}}  </br>
+          <input type="radio" name="hasapproverlevel" value="1" {{ (old('hasapproverlevel') != $companys->hasapproverlevel) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="hasapproverlevel" value="0" {{ (old('hasapproverlevel') == $companys->hasapproverlevel) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('hasbothapprover', 'Has Both Approvers:')}}  </br>
+          <input type="radio" name="hasbothapprover" value="1" {{ (old('hasbothapprover') != $companys->hasbothapprover) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="hasbothapprover" value="0" {{ (old('hasbothapprover') == $companys->hasbothapprover) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('hasnoapprover', 'Has no Approvers:')}}  </br>
+          <input type="radio" name="hasnoapprover" value="1" {{ (old('hasnoapprover') != $companys->hasnoapprover) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="hasnoapprover" value="0" {{ (old('hasnoapprover') == $companys->hasnoapprover) ? "CHECKED" : "" }}> No<br/>
+      </div>
+
+      <div class="radio">
+        {{Form::label('radio_booking', 'Radio Booking Access:')}}  </br>
+          <input type="radio" name="radio_booking" value="1" {{ (old('radio_booking') != $companys->radio_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="radio_booking" value="0" {{ (old('radio_booking') == $companys->radio_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('local_booking', 'Local Booking Access:')}}  </br>
+          <input type="radio" name="local_booking" value="1" {{ (old('local_booking') != $companys->local_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="local_booking" value="0" {{ (old('local_booking') == $companys->local_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('outstation_booking', 'Outstation Booking Access:')}}  </br>
+          <input type="radio" name="outstation_booking" value="1" {{ (old('outstation_booking') != $companys->outstation_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="outstation_booking" value="0" {{ (old('outstation_booking') == $companys->outstation_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('bus_booking', 'Bus Booking Access:')}}  </br>
+          <input type="radio" name="bus_booking" value="1" {{ (old('bus_booking') != $companys->bus_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="bus_booking" value="0" {{ (old('bus_booking') == $companys->bus_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('train_booking', 'Train Booking Access:')}}  </br>
+          <input type="radio" name="train_booking" value="1" {{ (old('train_booking') != $companys->train_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="train_booking" value="0" {{ (old('train_booking') == $companys->train_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('flight_booking', 'Flight Booking Access:')}}  </br>
+          <input type="radio" name="flight_booking" value="1" {{ (old('flight_booking') != $companys->flight_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="flight_booking" value="0" {{ (old('flight_booking') == $companys->flight_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+      <div class="radio">
+        {{Form::label('hotel_booking', 'Hotel Booking Access:')}}  </br>
+          <input type="radio" name="hotel_booking" value="1" {{ (old('hotel_booking') != $companys->hotel_booking) ? "CHECKED" : "" }}> Yes <br/>
+          <input type="radio" name="hotel_booking" value="0" {{ (old('hotel_booking') == $companys->hotel_booking) ? "CHECKED" : "" }}> No<br/>
+      </div>
+
+      {{Form::hidden('id', $companys->id)}}
+     <div>
+        {{form::submit('Submit',['class'=>'btn btn-primary'])}}
+     </div>
+
+    {!!Form::close() !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
